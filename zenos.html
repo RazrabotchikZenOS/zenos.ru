@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenOS — операционная система</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* шапка */
+        header {
+            background: #1e1e1e;
+            padding: 20px 0;
+            border-bottom: 1px solid #2c2c2c;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #b3a0ff, #7f5af0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        nav ul {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #7f5af0;
+        }
+        /* герой */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, #b3a0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero p {
+            font-size: 18px;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .info-badge {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #7f5af0;
+        }
+        /* секции */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #2c2c2c;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #7f5af0;
+            transform: translateY(-3px);
+        }
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .card p {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .badge {
+            display: inline-block;
+            background: #2c2c2c;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        .versions-grid, .editions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .version-card, .edition-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #2c2c2c;
+            text-align: center;
+        }
+        .version-card h3, .edition-card h3 {
+            margin: 12px 0 8px;
+        }
+        .premium-card {
+            background: linear-gradient(135deg, #1e1a2a, #1a1a1a);
+            border: 1px solid #7f5af0;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+        }
+        .premium-card h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .premium-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin: 24px 0;
+            list-style: none;
+        }
+        .premium-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .developer-card {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 32px;
+            flex-wrap: wrap;
+        }
+        .developer-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #7f5af0, #2cb67d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+        }
+        .developer-info {
+            flex: 1;
+        }
+        footer {
+            background: #0a0a0a;
+            padding: 32px 0;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+        @media (max-width: 700px) {
+            .header-inner {
+                flex-direction: column;
+            }
+            nav ul {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .developer-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-inner">
+        <div class="logo">ZenOS</div>
+        <nav>
+            <ul>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#versions">Версии</a></li>
+                <li><a href="#editions">Редакции</a></li>
+                <li><a href="#premium">Premium</a></li>
+                <li><a href="#developer">Разработчик</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="hero">
+        <div class="container">
+            <h1>ZenOS</h1>
+            <p>Современная операционная система с собственным ядром.<br>Быстро, безопасно, для x86, x64 и ARM.</p>
+            <div class="info-badge">Информационный сайт · Готовность 96%</div>
+        </div>
+    </div>
+
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Ключевые особенности</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Высокая скорость</h3>
+                    <p>Ядро реального времени, поддержка SMP до 256 ядер.</p>
+                    <span class="badge">99%</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Безопасность</h3>
+                    <p>Антивирус ZiFENDER, изоляция процессов, шифрование.</p>
+                    <span class="badge">94%</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🖥️</div>
+                    <h3>Графический интерфейс</h3>
+                    <p>Рабочий стол в стиле Windows 10, проводник, браузер.</p>
+                    <span class="badge">97%</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📦</div>
+                    <h3>Экосистема</h3>
+                    <p>Python, установщик, регулярные обновления, LTS.</p>
+                    <span class="badge">92%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="versions" class="section">
+        <div class="container">
+            <h2 class="section-title">Актуальные версии</h2>
+            <div class="versions-grid">
+                <div class="version-card">
+                    <div class="card-icon">6️⃣</div>
+                    <h3>ZenOS 6 LTS</h3>
+                    <p>Стабильность, поддержка до 2029. Для серверов и организаций.</p>
+                </div>
+                <div class="version-card">
+                    <div class="card-icon">7️⃣</div>
+                    <h3>ZenOS 7</h3>
+                    <p>Улучшенная безопасность, модульное ядро.</p>
+                </div>
+                <div class="version-card">
+                    <div class="card-icon">8️⃣</div>
+                    <h3>ZenOS 8</h3>
+                    <p>Современный интерфейс, AI-помощник.</p>
+                </div>
+                <div class="version-card">
+                    <div class="card-icon">9️⃣</div>
+                    <h3>ZenOS 9 (багнутая)</h3>
+                    <p>Экспериментальная версия для тестировщиков.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="editions" class="section">
+        <div class="container">
+            <h2 class="section-title">Специальные редакции</h2>
+            <div class="editions-grid">
+                <div class="edition-card"><h3>Home</h3><p>Домашняя</p></div>
+                <div class="edition-card"><h3>Pro</h3><p>Профессиональная</p></div>
+                <div class="edition-card"><h3>Max</h3><p>Максимальная</p></div>
+                <div class="edition-card"><h3>Education</h3><p>Образование</p></div>
+                <div class="edition-card"><h3>Police</h3><p>Полиция</p></div>
+                <div class="edition-card"><h3>Medical</h3><p>Медицина</p></div>
+                <div class="edition-card"><h3>MaxGame</h3><p>Игровая</p></div>
+                <div class="edition-card"><h3>English</h3><p>Английская (блокировка РФ)</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="premium" class="section">
+        <div class="container">
+            <div class="premium-card">
+                <h2>ZenOS Premium</h2>
+                <p>Платная версия с расширенными возможностями</p>
+                <ul class="premium-features">
+                    <li>✅ Поддержка 24/7</li>
+                    <li>✅ Инструменты разработки</li>
+                    <li>✅ Расширенная защита</li>
+                    <li>✅ Ранний доступ к обновлениям</li>
+                </ul>
+                <div>
+                    <span class="badge">Премиум</span>
+                    <span class="badge">Доступно в ЕКБ</span>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px; color: #aaa;">Пока недоступна в других регионах.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="developer" class="section">
+        <div class="container">
+            <div class="developer-card">
+                <div class="developer-avatar">АФ</div>
+                <div class="developer-info">
+                    <h3>Арсений Фалеев, 10 лет</h3>
+                    <p>Юный гений, создавший ZenOS в одиночку. Начал учиться программированию в 4 года, а в 5 лет уже приступил к написанию собственной операционной системы.</p>
+                    <p style="margin-top: 8px;">«Я верю, что технологии должны быть простыми, красивыми и доступными каждому.»</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 ZenOS. Информационный сайт. Все права защищены.</p>
+    </div>
+</footer>
+</body>
+</html>
